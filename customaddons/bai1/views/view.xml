@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="customer_view_tree" model="ir.ui.view">
+        <field name="name">CustomerField.tree</field>
+        <field name="model">customer</field>
+        <field name="arch" type="xml">
+            <tree string="Customer">
+                <field name="name"/>
+                <field name="discount_code"/>
+                <field name="discount_estimated"/>
+                <field name="check1"/>
+                <field name="discount_total"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="customer_search_view" model="ir.ui.view">
+        <field name="name">customer_search_view</field>
+        <field name="model">customer</field>
+        <field name="arch" type="xml">
+            <search string="customer search">
+                <field name="name"/>
+                <field name="discount_code"/>
+                <field name="discount_estimated"/>
+                <filter name="filter_customer" string="special customer"
+                        domain="[('discount_code','=','VIP_10')]"/>
+            </search>
+        </field>
+
+    </record>
+
+    <record id="player_view_form" model="ir.ui.view">
+        <field name="name">CustomerField.form</field>
+        <field name="model">customer</field>
+        <field name="arch" type="xml">
+            <form string="Customer">
+                <sheet>
+
+                    <label for="name"></label>
+                    <h1>
+                        <field name="name"></field>
+                    </h1>
+
+                    <group>
+                        <field name="discount_code"></field>
+                        <field name="discount_estimated"></field>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="customer_action" model="ir.actions.act_window">
+        <field name="name">CustomerField</field>
+        <field name="search_view_id" ref="customer_search_view"/>
+        <field name="res_model">customer</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="customer_action_1" model="ir.actions.act_window">
+        <field name="name">Customer</field>
+        <field name="search_view_id" ref="customer_search_view"/>
+        <field name="res_model">customer</field>
+        <field name="view_mode">tree,form</field>
+
+        <!--         <filter name="filter_customer" string="customer"-->
+        <!--                        domain="[('discount_code','=','vip_10')]"/>-->
+        <field name="domain">[('check1','=',True)]</field>
+    </record>
+
+    <menuitem id="customer_menu" name="CustomerField_1" groups="base.group_user"/>
+    <menuitem id="customer_menu_1" name="CustomerField_2" parent="customer_menu"
+              action="customer_action" groups="base.group_user"/>
+    <menuitem id="customer_menu_2" name="CustomerField_3" parent="customer_menu"
+              action="customer_action_1" groups="base.group_user"/>
+
+
+</odoo>

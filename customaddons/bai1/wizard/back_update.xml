@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_back_update" model="ir.ui.view">
+        <field name="name">back.update</field>
+        <field name="model">backupdate.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Back Update">
+                <group>
+                    <group>
+                        <field name="partner_ids"/>
+                        <field name="discount_code"/>
+                    </group>
+                    <group/>
+                </group>
+                <p>
+                    Apply updating on the selected record(s)?
+
+                </p>
+                <footer>
+                    <button string="Confirm" name="update_wizard" type="object" default_focus="1" class="btn-primary"/>
+                    <button string="Cancel" class="btn-default" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="backupdate_wizard" model="ir.actions.server">
+        <field name="name">update_wizard</field>
+        <field name="model_id" ref="model_res_partner"/>
+        <field name="binding_model_id" ref="model_res_partner"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">action = records.update_code_customer()</field>
+    </record>
+
+    <!--    <record id="action_back_update" model="ir.actions.act_window">-->
+    <!--        <field name="name">Back Update</field>-->
+    <!--        <field name="res_model">backupdate.wizard</field>-->
+    <!--        <field name="binding_model_id" ref="model_res_partner"/>-->
+    <!--        <field name="view_mode">form</field>-->
+    <!--        <field name="target">new</field>-->
+    <!--        <field name="view_id" ref="view_back_update"/>-->
+    <!--    </record>-->
+    <act_window id="action_wizard_confirm_books" name="Give on Confirm" res_model="backupdate.wizard" view_mode="form"
+                target="new"/>
+    <menuitem id="menu_wizard_rent_books" parent="sale.sale_menu_root" action="action_wizard_confirm_books" sequence="20"/>
+</odoo>
