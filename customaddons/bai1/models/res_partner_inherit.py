@@ -41,6 +41,7 @@ class ResPartnerInherit(models.Model):
     @api.depends('discount_code')
     def total_discount_estimated(self):
         for i in self:
+            print("i")
             i.sale_order_discount_estimated = 0
             if i.discount_code:
                 if i.discount_code.split('_')[1]:
